@@ -3,7 +3,6 @@ const cors = require('cors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
-const passport = require('passport');
 const router = require('../../routes/routes');
 const app = require('../app');
 
@@ -51,15 +50,9 @@ const startServer = config => {
   app.use(express.json());
   app.use(cookieParser());
   app.use(flash());
+
   // Log requests to console
   app.use(morgan('dev'));
-
-  //Passport
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  // Bring in defined Passport Strategy
-  require('../../middleware/passport')(passport);
 
   // API group routes
   app.use(config.apiPrefix, router);

@@ -9,8 +9,6 @@ const messages = {
 
 const connectDB = config => {
   const dbOption = {
-    user: process.env.MONGO_DB_USER,
-    pass: process.env.MONGO_DB_USER_PASS,
     useNewUrlParser: true,
     useCreateIndex: true
   };

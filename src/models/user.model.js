@@ -1,16 +1,11 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-// const bcrypt_p = require('bcrypt-promise');
+
 const jwt = require('jsonwebtoken');
-// const validate = require('mongoose-validator');
-// const {
-//   TE,
-//   to
-// } = require('../services/util.service');
 const {
   Schema
 } = mongoose;
-// const hashPassword = require('../middleware/hash-password');
+
 const CONFIG = require('../../config/config');
 
 const UserSchema = new Schema({

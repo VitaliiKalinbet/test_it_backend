@@ -1,0 +1,8 @@
+{
+  "name": "test_it_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:VitaliiKalinbet/test_it_backend.git",
+  "author": "Viktor Bulvarenko <silken.ua@gmail.com>",
+  "license": "MIT"
+}

@@ -1,7 +1,7 @@
 module.exports = {
-  db_host: 'mongodb://127.0.0.1:27017/test_it',
+  db_host: 'mongodb://test_it_team:test_it_team123456@ds049744.mlab.com:49744/test_it',
   dbData: {
-    url: 'mongodb://127.0.0.1:27017/test_it',
+    url: 'mongodb://test_it_team:test_it_team123456@ds049744.mlab.com:49744/test_it',
     user: '',
     pass: '',
   },

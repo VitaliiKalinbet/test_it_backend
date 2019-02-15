@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let answerSchema = new Schema({
-  title: {
+const AnswersSchema = new Schema({
+  answerTitle: {
     type: String,
-    lowercase: true, // Always convert test to lowercase
+    required: true
   },
+  typeProfession: {
+    type: String,
+    required: true
+  }
 });
 
-module.exports = answerSchema;
+// const Answers = mongoose.model('Answers', AnswersSchema, 'answers');
+
+module.exports = AnswersSchema;

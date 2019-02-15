@@ -1,13 +1,22 @@
-let mongoose = require('mongoose');
-let AnswerSchema = require('./answers.model');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Answers = require('./answers.model');
+const Schema = mongoose.Schema;
 
-let questionSchema = new Schema({
-  qustionBody: {
-    type: String,
-    lowercase: true, // Always convert test to lowercase
+const QuestionsSchema = new Schema({
+  questionNumber: {
+    type: Number,
+    required: true
   },
-  answers: [AnswerSchema],
+  questionTitle: {
+    type: String,
+    required: true
+  },
+  answers: [Answers],
+},
+{
+  timestamps: true
 });
 
-module.exports = questionSchema;
+const Questions = mongoose.model('Questions', QuestionsSchema, 'questions');
+
+module.exports = Questions;

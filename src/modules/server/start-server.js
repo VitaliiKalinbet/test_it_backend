@@ -1,9 +1,10 @@
 const morgan = require('morgan');
-const cors = require('cors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
+const exphbs = require('express-handlebars');
 const router = require('../../routes/routes');
+
 const app = require('../app');
 
 require('dotenv').config();
@@ -14,31 +15,11 @@ const messages = {
   }
 };
 
-const setupCORSForDevelopment = developmentUrl => {
-  const corsOptions = {
-    origin: developmentUrl,
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'Content-Length',
-      'X-Requested-With',
-      'Accept'
-    ],
-    methods: [
-      'GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'
-    ]
-  };
-
-  app.use(cors(corsOptions));
-};
-
 const startServer = config => {
-  //
-  const {
-    client,
-    server
-  } = config;
-  const developmentUrl = `${client.development.url}:${client.development.port}`;
+  const { server } = config;
+
+  app.engine('handlebars', exphbs());
+  app.set('view engine', 'handlebars');
 
   // Use public Html Css Js files
   app.use('/', express.static('public'));
@@ -54,13 +35,14 @@ const startServer = config => {
   // Log requests to console
   app.use(morgan('dev'));
 
+  app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
+
   // API group routes
   app.use(config.apiPrefix, router);
-
-
-  if (process.env.NODE_ENV === 'development') {
-    setupCORSForDevelopment(developmentUrl);
-  }
 
   const port = process.env.PORT || server.port;
 

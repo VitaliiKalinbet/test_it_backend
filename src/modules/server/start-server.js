@@ -2,6 +2,7 @@ const morgan = require('morgan');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
+const exphbs = require('express-handlebars');
 const router = require('../../routes/routes');
 
 const app = require('../app');
@@ -16,6 +17,9 @@ const messages = {
 
 const startServer = config => {
   const { server } = config;
+
+  app.engine('handlebars', exphbs());
+  app.set('view engine', 'handlebars');
 
   // Use public Html Css Js files
   app.use('/', express.static('public'));

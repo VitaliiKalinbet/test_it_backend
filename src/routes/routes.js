@@ -7,6 +7,7 @@ const notFoundHandler = require('../middleware/not-found');
 const serverErrorHandler = require('../middleware/server-error');
 
 const Question = require('../controllers/question.controller');
+const SendEmail = require('../controllers/sendEmail.controller');
 
 const setupCORSForDevelopment = (developmentUrl) => {
   const corsOptions = {
@@ -41,6 +42,8 @@ router.get('/question', Question.getFirstQuestion);
 router.get('/question/:number', Question.getQuestionByNumber);
 // router.get('/question/:id', );
 router.post('/answer', );
+
+router.post('/send', SendEmail.sendEmail);
 
 router.use(notFoundHandler);
 router.use(serverErrorHandler);

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js ",
+    "start": "NODE_ENV=development node ./src/index.js",
     "server": "nodemon ./src/index.js",
     "server:debug": "nodemon --inspect ./src/index.js",
     "lint": "eslint \"**/*.js\""

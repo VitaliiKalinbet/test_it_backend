@@ -11,7 +11,7 @@ module.exports = {
   },
   client: {
     development: {
-      url: 'http://*',
+      url: 'http://localhost',
       port: '3000',
     },
   },

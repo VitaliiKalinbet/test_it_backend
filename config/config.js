@@ -11,8 +11,8 @@ module.exports = {
   },
   client: {
     development: {
-      url: 'http://localhost',
-      port: '41411',
+      url: 'http://*',
+      port: '3000',
     },
   },
   jwt_encryption: process.env.JWT_ENCRYPTION || 'jwt_please_change',

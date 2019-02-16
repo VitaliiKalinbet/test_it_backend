@@ -24,10 +24,11 @@ module.exports.getFirstQuestion = async ( req, res ) => {
     dataSend.countQuestion = count;
   });
 
-  const getFirst = await Questions.findOne({ questionNumber: 1 }).lean().exec();
+  const getFirst = await Questions.find().lean().exec();
 
   dataSend.question = getFirst;
   dataSend.userAnswerId = 'kjhlasfdkljhasdflkjhaf';
+
 
   if (getFirst) {
     return res.status(200).json(dataSend);

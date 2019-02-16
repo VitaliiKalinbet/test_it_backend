@@ -7,6 +7,8 @@ const notFoundHandler = require('../middleware/not-found');
 const serverErrorHandler = require('../middleware/server-error');
 
 const Question = require('../controllers/question.controller');
+
+const UserAnswers = require('../controllers/answer.controller');
 const SendEmail = require('../controllers/sendEmail.controller');
 
 const setupCORSForDevelopment = (developmentUrl) => {
@@ -41,7 +43,7 @@ if (process.env.NODE_ENV === 'production') {
 router.get('/question', Question.getFirstQuestion);
 router.get('/question/:number', Question.getQuestionByNumber);
 // router.get('/question/:id', );
-router.post('/answer', );
+router.put('/answer', UserAnswers.saveUserAnswerInDB);
 
 router.post('/send', SendEmail.sendEmail);
 

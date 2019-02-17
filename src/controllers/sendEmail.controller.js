@@ -26,9 +26,6 @@ module.exports.sendEmail = (req, res) => {
       auth: {
         user: 'testit@rizne.in.ua', // generated ethereal user
         pass: 'testIT123TEST' // generated ethereal password
-      },
-      tls: {
-        rejectUnauthorized: false
       }
     });
 

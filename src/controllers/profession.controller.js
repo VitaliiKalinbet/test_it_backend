@@ -7,6 +7,6 @@ module.exports.setNewProf = (req, res) => {
     data
   );
 
-  res.status(200);
+  res.status(200).json({ kol: 'some' });
 };
 

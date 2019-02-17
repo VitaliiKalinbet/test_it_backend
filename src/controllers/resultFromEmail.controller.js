@@ -8,9 +8,11 @@ const getProfessionsByMaxScores = professionObj => {
   const maxProfessionScore = professionScores.reduce((acc, scores) => acc < scores ? scores : acc);
 
   return professionEntries
-    .map( ([
+    .map(
+      ([
 profName, score
-]) => score === maxProfessionScore ? profName : null)
+]) => score === maxProfessionScore ? profName : null
+    )
     .filter( item => !!item );
 };
 

@@ -7,7 +7,6 @@ const notFoundHandler = require('../middleware/not-found');
 const serverErrorHandler = require('../middleware/server-error');
 
 const Question = require('../controllers/question.controller');
-const ProfessionDescr = require('../controllers/profession.controller');
 const UserAnswers = require('../controllers/answer.controller');
 const SendEmail = require('../controllers/sendEmail.controller');
 const ResultFromEmail = require('../controllers/resultFromEmail.controller');
@@ -45,7 +44,6 @@ router.get('/question', Question.getFirstQuestion);
 router.get('/question/:number', Question.getQuestionByNumber);
 // router.get('/question/:id', );
 router.put('/answer', UserAnswers.saveUserAnswerInDB);
-router.get('/profession', ProfessionDescr.getProfessionDescr);
 router.get('/result/:userAnswerId', ResultFromEmail.getResultById);
 
 router.post('/send', SendEmail.sendEmail);

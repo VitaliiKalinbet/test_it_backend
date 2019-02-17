@@ -44,7 +44,7 @@ router.get('/question', Question.getFirstQuestion);
 router.get('/question/:number', Question.getQuestionByNumber);
 // router.get('/question/:id', );
 router.put('/answer', UserAnswers.saveUserAnswerInDB);
-router.get('/result/:userAnswerId', ResultFromEmail.getResultById);
+router.get('/result/:userAnswerId', ResultFromEmail.getResultsById);
 
 router.post('/send', SendEmail.sendEmail);
 

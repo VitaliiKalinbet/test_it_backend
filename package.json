@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development node ./src/index.js",
     "server": "NODE_ENV=development nodemon ./src/index.js",
-    "server:debug": "nodemon --inspect ./src/index.js",
+    "server:debug": "NODE_ENV=development nodemon --inspect ./src/index.js",
     "lint": "eslint \"**/*.js\""
   },
   "repository": "git@github.com:VitaliiKalinbet/test_it_backend.git",

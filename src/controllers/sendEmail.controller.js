@@ -7,6 +7,7 @@ module.exports.sendEmail = (req, res) => {
   const userAnswersId = req.body.userAnswersId;
 
   console.log(email, userAnswersId);
+
   const output = `
     <h3>Hello,</h3>
     <p>You test result</p>

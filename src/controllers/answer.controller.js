@@ -14,30 +14,30 @@ module.exports.saveUserAnswerInDB = async (req, res) => {
 
   const getMax = object => {
     return Object.keys(object).filter(x => {
-         return object[x] === Math.max.apply(null,
-         Object.values(object));
-   });
-};
+      return object[x] === Math.max.apply(null,
+        Object.values(object));
+    });
+  };
 
-const profession = [];
+  const profession = [];
 
-await getMax(result).forEach(async (key) => {
-  await ProfessionDescr.findOne({typeProfession: key}, function (err, obj) {
-    const prof = obj;
-    profession.push(prof);
+  await getMax(result).forEach(async (key) => {
+    await ProfessionDescr.findOne({typeProfession: key}, function(err, obj) {
+      const prof = obj;
+      profession.push(prof);
+    });
   });
-});
 
-await UserAnswers.findOneAndUpdate({
-    _id: req.body.userAnswersId
-  }, {
-    answers: req.body.answers,
-    result,
-    profession
-  },
-  { useFindAndModify: false},
-   function (err) {
-    if (err) console.log(err);
-    res.status(200).json({result, profession});
-  });
+  await UserAnswers.findOneAndUpdate({
+      _id: req.body.userAnswersId,
+    }, {
+      answers: req.body.answers,
+      result,
+      profession,
+    },
+    {useFindAndModify: false},
+    function(err) {
+      if (err) console.log(err);
+      res.status(200).json({result, profession});
+    });
 };

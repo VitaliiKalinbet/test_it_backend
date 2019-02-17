@@ -1,10 +1,18 @@
 const nodemailer = require('nodemailer');
 
 module.exports.sendEmail = (req, res) => {
+
+  const email = req.body.email;
+  const img = req.body.image;
+  const userAnswersId = req.body.userAnswersId;
+
+  console.log(email, userAnswersId);
   const output = `
-    <h3>Hello ${req.body.name},</h3>
-    <p>You test message</p>
-    <p>${req.body}</p>
+    <h3>Hello,</h3>
+    <p>You test result</p>
+    <img src="${img}" alt="image graph result"/>
+    <p>if you want see detail result</p>
+    <p>please click to this <a href="http://194.44.175.186:41410/result/${userAnswersId}">link</a></p>
   `;
 
   // async..await is not allowed in global scope, must use a wrapper
@@ -26,9 +34,8 @@ module.exports.sendEmail = (req, res) => {
     // setup email data with unicode symbols
     let mailOptions = {
       from: '"Test_IT 👻" <testit@rizne.in.ua>', // sender address
-      to: req.body.email, // list of receivers
-      subject: 'Hello it test ✔', // Subject line
-      text: 'Hello world?', // plain text body
+      to: email, // list of receivers
+      subject: 'Hello it you result test ✔', // Subject line
       html: output // html body
     };
 
@@ -39,7 +46,9 @@ module.exports.sendEmail = (req, res) => {
     // Preview only available when sending through an Ethereal account
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-    res.render('contact', {msg: 'Email has been sent'});
+    res.status(200).json({
+      message: 'Email send success'
+    });
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   }

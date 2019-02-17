@@ -14,15 +14,18 @@ module.exports.getQuestionByNumber = async (req, res) => {
 };
 
 module.exports.getFirstQuestion = async (req, res) => {
+
   const dataSend = {};
   const getFirst = await Questions.find().lean().exec();
+
   dataSend.question = getFirst;
+
   const newUserAnswers = await new UserAnswers();
+
   await newUserAnswers.save(function (err, doc) {
     dataSend.userAnswersId = doc.id;
     if (getFirst) {
       res.status(200).json(dataSend);
     }
   });
-
 };

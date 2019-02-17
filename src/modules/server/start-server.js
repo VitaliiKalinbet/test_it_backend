@@ -5,6 +5,8 @@ const flash = require('connect-flash');
 const exphbs = require('express-handlebars');
 const router = require('../../routes/routes');
 
+const ResultFromEmail = require('../../controllers/resultFromEmail.controller');
+
 const app = require('../app');
 
 require('dotenv').config();
@@ -41,6 +43,7 @@ const startServer = config => {
     next();
   });
 
+  app.use('/result/:userAnswerId', ResultFromEmail.getResultById);
   // API group routes
   app.use(config.apiPrefix, router);
 

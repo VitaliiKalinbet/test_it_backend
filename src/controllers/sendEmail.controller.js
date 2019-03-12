@@ -1,21 +1,24 @@
 const nodemailer = require('nodemailer');
+const base64Img = require('base64-img');
 
-module.exports.sendEmail = (req, res) => {
-
+module.exports.sendEmail = async (req, res) => {
   const email = req.body.email;
   const img = req.body.image;
   const userAnswersId = req.body.userAnswersId;
 
-  console.log(email, userAnswersId);
+  base64Img.img(img, './public/images', userAnswersId, function (err) {
+    if (err) console.log(err);
+  });
 
   const output = `
-    <h3>Hello,</h3>
-    <p>You test result</p>
-    <img src="${img}" alt="image graph result"/>
-    <p>if you want see detail result</p>
-    <p>please click to this <a href="http://194.44.175.186:41410/result/${userAnswersId}">link</a></p>
+    <h3>Добрый день!</h3>
+    <p>Результат Вашего теста </p>
+    <img src="https://testit.co.ua/images/${userAnswersId}.png" alt="image graph result" width="350" height="200"/>
+    <p>Для более подробного ознакомления с результатом, перейдите по ссылке ниже</p>
+    <p>Пожалуйста нажмите <a href="https://testit.co.ua/result/${userAnswersId}">тут</a></p>
   `;
 
+  // console.log(output);
   // async..await is not allowed in global scope, must use a wrapper
   async function main() {
     // create reusable transporter object using the default SMTP transport
@@ -33,7 +36,7 @@ module.exports.sendEmail = (req, res) => {
     let mailOptions = {
       from: '"Test_IT 👻" <testit@rizne.in.ua>', // sender address
       to: email, // list of receivers
-      subject: 'Hello it you result test ✔', // Subject line
+      subject: 'Результат вашего теста ✔', // Subject line
       html: output // html body
     };
 
@@ -47,9 +50,7 @@ module.exports.sendEmail = (req, res) => {
     res.status(200).json({
       message: 'Email send success'
     });
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   }
 
-  main().catch(console.error);
+  await main().catch(console.error);
 };

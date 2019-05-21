@@ -13,7 +13,7 @@
   "author": "Viktor Bulvarenko <silken.ua@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "base64-img": "1.0.4",
+    "base64-img": "^1.0.4",
     "bcrypt": "^3.0.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",

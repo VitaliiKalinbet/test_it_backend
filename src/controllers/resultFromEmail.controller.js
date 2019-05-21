@@ -27,7 +27,7 @@ const getProfessionDescr = (professionName) => new Promise(res => {
 });
 
 
-const getAllProfessionsDescr = async (userResults) => {
+const getAllProfessionsDescr = (userResults) => {
 
   const professionsWithMaxScores = getProfessionsByMaxScores(userResults);
 

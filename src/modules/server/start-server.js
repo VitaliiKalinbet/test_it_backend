@@ -23,6 +23,8 @@ const startServer = config => {
 
   // Use public Html Css Js files
   app.use('/', express.static('public'));
+  app.use('/test', express.static('public'));
+  app.use('/result/:id', express.static('public'));
 
   // Use body-parser to get POST requests for API use
   app.use(express.urlencoded({

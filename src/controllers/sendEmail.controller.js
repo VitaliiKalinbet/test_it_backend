@@ -1,18 +1,23 @@
 // const nodemailer = require('nodemailer');
 const emailJS	= require('emailjs');
+const fs = require('fs');
 
-module.exports.sendEmail = (req, res) => {
-
+module.exports.sendEmail = async (req, res) => {
   const email = req.body.email;
   const img = req.body.image;
   const userAnswersId = req.body.userAnswersId;
 
+  fs.writeFile(`./public/${userAnswersId}.png`, img, {encoding: 'base64'}, function(err) {
+    if (err) console.log(err);
+    console.log('File created');
+  });
+
   const output = `
-    <h3>Hello,</h3>
-    <p>You test result</p>
-    <img src="${img}" alt="image graph result"/>
-    <p>if you want see detail result</p>
-    <p>please click to this <a href="http://194.44.175.186:41410/result/${userAnswersId}">link</a></p>
+    <h3>Добрый день!</h3>
+    <p>Результат Вашего теста </p>
+    <img src="https://testit.co.ua/images/${userAnswersId}.png" alt="image graph result" width="350" height="200"/>
+    <p>Для более подробного ознакомления с результатом, перейдите по ссылке ниже</p>
+    <p>Пожалуйста нажмите <a href="https://testit.co.ua/result/${userAnswersId}">тут</a></p>
   `;
 
 const server 	= emailJS.server.connect({

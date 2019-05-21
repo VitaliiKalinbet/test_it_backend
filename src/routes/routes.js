@@ -11,6 +11,7 @@ const UserAnswers = require('../controllers/answer.controller');
 const SendEmail = require('../controllers/sendEmail.controller');
 const ResultFromEmail = require('../controllers/resultFromEmail.controller');
 
+
 const setupCORSForDevelopment = (developmentUrl) => {
   const corsOptions = {
     origin: developmentUrl,
@@ -41,11 +42,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 router.get('/question', Question.getFirstQuestion);
-router.get('/question/:number', Question.getQuestionByNumber);
-// router.get('/question/:id', );
 router.put('/answer', UserAnswers.saveUserAnswerInDB);
 router.get('/result/:userAnswerId', ResultFromEmail.getResultsById);
-
 router.post('/send', SendEmail.sendEmail);
 
 router.use(notFoundHandler);

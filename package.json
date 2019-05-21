@@ -13,6 +13,7 @@
   "author": "Viktor Bulvarenko <silken.ua@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "base64-img": "^1.0.4",
     "bcrypt": "^3.0.2",
     "connect-flash": "^0.1.1",

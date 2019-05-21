@@ -1,7 +1,5 @@
-// const nodemailer = require('nodemailer');
-// const emailJS	= require('emailjs');
+const nodemailer = require('nodemailer');
 const base64Img = require('base64-img');
-const sgMail = require('@sendgrid/mail');
 
 module.exports.sendEmail = async (req, res) => {
   const email = req.body.email;
@@ -9,7 +7,12 @@ module.exports.sendEmail = async (req, res) => {
   const userAnswersId = req.body.userAnswersId;
 
     base64Img.img(img, './public/images', userAnswersId, function (err) {
-    if (err) console.log(err);
+    if (err) {
+      console.log(err);
+      res.status(404).json({
+          message: err.message
+        });
+    }
   });
 
   const output = `
@@ -19,73 +22,44 @@ module.exports.sendEmail = async (req, res) => {
     <p>Для более подробного ознакомления с результатом, перейдите по ссылке ниже</p>
     <p>Пожалуйста нажмите <a href="https://testit.co.ua/result/${userAnswersId}">тут</a></p>
   `;
+   //async..await is not allowed in global scope, must use a wrapper
+  function main() {
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'testit.goit@gmail.com', // generated ethereal user
+        pass: 'goit34GH@#' // generated ethereal password
+      }
+    });
 
-// using Twilio SendGrid's v3 Node.js Library
-// https://github.com/sendgrid/sendgrid-nodejs
+    // setup email data with unicode symbols
+    let mailOptions = {
+      from: '"Test_IT 👻" <testit.goit@gmail.com>', // sender address
+      to: email, // list of receivers
+      subject: 'Hello it you result test ✔', // Subject line
+      html: output // html body
+    };
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-const msg = {
-  to: email,
-  from: 'result@testit.co.ua',
-  subject: 'Hello it you result test ✔',
-  text: 'and easy to do anywhere, even with Node.js',
-  html: output,
-};
-sgMail.send(msg);
-res.status(200).json({message: 'email send successfully' });
-// const server 	= emailJS.server.connect({
-//   user:    'admin@testit.co.ua',
-//   password:'goit34GH@#',
-//   host:    'mail.testit.co.ua',
-//   ssl:     true
-// });
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function (err, info) {
+      if(err) {
+        console.log(err);
+        res.status(404).json({
+          message: err.message
+        });
+      } else {
+        console.log(info);
+        res.status(200).json({
+          message: 'Email send success'
+        });
+      }
+});
 
-// // send the message and get a callback with an error or details of the message that was sent
-// server.send({
-//   text:    output,
-//   from:    'TestIT <result@testit.co.ua>',
-//   to:      email,
-//   subject: 'testing emailjs'
-// }, function(err, message) {
-//   console.log(err || message);
-// });
+    res.status(200).json({
+      message: 'Email send success'
+    });
+  }
 
-
-//   //async..await is not allowed in global scope, must use a wrapper
-//   async function main() {
-//     // create reusable transporter object using the default SMTP transport
-//     let transporter = nodemailer.createTransport({
-//       host: 'mail.testite.co.ua',
-//       port: 465,
-//       secure: true, // true for 465, false for other ports
-//       auth: {
-//         user: 'admin@testit.co.ua', // generated ethereal user
-//         pass: 'goit34GH@#' // generated ethereal password
-//       }
-//     });
-
-//     // setup email data with unicode symbols
-//     let mailOptions = {
-//       from: '"Test_IT 👻" <testit@testit.co.ua>', // sender address
-//       to: email, // list of receivers
-//       subject: 'Hello it you result test ✔', // Subject line
-//       html: output // html body
-//     };
-
-//     // send mail with defined transport object
-//     let info = await transporter.sendMail(mailOptions);
-
-//     console.log('Message sent: %s', info.messageId);
-//     // Preview only available when sending through an Ethereal account
-//     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-//     res.status(200).json({
-//       message: 'Email send success'
-//     });
-//     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-//     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-//   }
-
-//   main().catch(console.error);
-//   res.status(200).json({message: 'email send successfully' });
+  main();
 };

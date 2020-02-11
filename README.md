@@ -8,5 +8,5 @@ In this web application, the user can take a test to help determine the propensi
 
 ## Project Materials:
 
-[Project backend part on node.js](https://github.com/VitaliiKalinbet/test_it_backend)
-[Project frontend part on react.js](https://github.com/VitaliiKalinbet/test_it_frontend)
+1. [Project backend part on node.js](https://github.com/VitaliiKalinbet/test_it_backend)
+2. [Project frontend part on react.js](https://github.com/VitaliiKalinbet/test_it_frontend)
